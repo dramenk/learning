@@ -6,6 +6,8 @@
 # =是可以全文refer to的，而:=只能refer to语句之前的
 # 若OBJS := MAINOBJ HELLOOBJ，那么OBJS展开为：
 # work/main.o
+# OBJS ?= work/main.o work/hello.o的意思是OBJS之前
+# 定义过么，定义过就算了，没定义过就让它等于work/....吧
 MAINOBJ = work/main.o
 OBJS = MAINOBJ HELLOOBJ
 HELLOOBJ = work/hello.o
@@ -17,3 +19,5 @@ work/hello.o : ../hello/hello.c ../hello/hello.h
 	gcc -c ../hello/hello.c -o work/hello.o
 clean:
 	rm -f work/*.o vod
+# 系统变量MAKELEVEL：如果makefile嵌套调用了，那么这个变
+# 量会记录下调用的层数
