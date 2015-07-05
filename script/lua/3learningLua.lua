@@ -44,3 +44,24 @@ print('theTable[2] is ' .. theTable[2])
 for k, v in pairs(theTable) do 
 	io.write(k..'\t'..v..'\n')
 end
+print("===============================================================")
+
+-- table是以对象的方式存储的，变量并不真的持有它们的值，而仅仅是保存了这些对象的引用(reference)。
+-- theTable2是theTable1的副本，他们引用的是同一个对象，因此对theTable1所做的更改，同样对theTable2
+-- 生效。这类值还包括函数，线程。
+theTable1 = {"3", "hello", "2"}
+theTable2 = theTable1
+for k, v in ipairs(theTable2) do
+	print(k, v)
+end
+print("-----------------------")
+table.sort(theTable1)
+for k, v in ipairs(theTable2) do
+	print(k, v)
+end
+print("-----------------------")
+theTable1[1] = "ke"
+for k, v in ipairs(theTable2) do
+	print(k, v)
+end
+
