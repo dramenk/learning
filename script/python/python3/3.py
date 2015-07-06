@@ -29,3 +29,28 @@ a = [x * x for x in range(11) if x % 2 == 0] # 还可以增加限制条件
 print(a)
 print([d for d in os.listdir('.')])
 
+# 生成器，不存储完整的列表，而是一边循环一边计算。
+b = (x * x for x in range(11))
+print(b)
+print(next(b)) # 通过next()获取下一个值
+print(next(b)) 
+for n in b:
+	print(n)
+
+# 利用yield，类似于lua的coroutine，在yield出中断，在yield处继续
+print("斐波拉契:")
+def fib(max):
+	n, a, b = 0, 0, 1
+	while n < max:
+		yield b
+		a, b = b, a + b
+		n = n + 1
+	return 'done'
+for n in fib(5):
+	print(n)
+
+# 生成器不但可以作用于for循环，还可以被next()函数不断调用并返回下一个值
+# 可以被next()函数调用并不断返回下一个值的对象称为迭代器：Iterator
+print("fib(10)是迭代器？", isinstance(fib(10), collections.Iterator))
+print("fib(10)可迭代？", isinstance(fib(10), collections.Iterable))
+
