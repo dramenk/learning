@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from functools import reduce
+import functools
 
 print("高阶函数英文叫Higher-order function. 函数本身就是一等公民，可以作为入参传入高阶函数中。")
 
@@ -17,7 +17,7 @@ print("所有元素：", list(a))	# 利用list计算出所有的Iterator的元�
 # 续和序列的下一个元素做累积计算
 def add(x, y):
 	return x + y
-print("使用reduce计算1+...+100=", reduce(add, range(101)))
+print("使用reduce计算1+...+100=", functools.reduce(add, range(101)))
 
 # 假如没有python的int()函数
 def char2num(s):
@@ -63,3 +63,10 @@ def count():
 c1, c2, c3 = count()
 print(c1())						# 不是1
 print(c2())						# 不是4
+
+# 如果存在这种需求
+def int2(x, base=2):
+	return int(x, base)
+# 使用偏函数更professional
+int2 = functools.partial(int, base=2)
+print("使用偏函数:", int2('100000'))
