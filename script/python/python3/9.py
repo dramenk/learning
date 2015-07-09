@@ -25,3 +25,21 @@ finally:
 # try...except捕获错误还有一个巨大的好处，就是可以跨越多层调用
 # 内层函数抛出的错误可以由外层函数捕获，如果一直没有被捕获，那
 # 最终python解释器会捕获到
+
+#### 错误抛出 ####
+class FooError(ValueError):
+	pass
+
+def foo(s):
+	n = int(s)
+	if n==0:
+		raise FooError('invalid value: %s' % s)
+	return 10 / n
+
+foo("0")
+
+# raise 如果不带参数，会将错误原样抛出
+try:
+	10 / 0
+except ZeroDivisionError:
+	raise
