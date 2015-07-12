@@ -84,7 +84,7 @@ def loop():
 if __name__ == '__main__':
 	# 主线程实例的名字叫做MainThread
 	print('thread %s is running ...' % threading.current_thread().name)
-	# 主线程可以启动子线程，子线程的名字由threading.Thread()方法的name参数传入<F11>
+	# 主线程可以启动子线程，子线程的名字由threading.Thread()方法的name参数传入
 	t = threading.Thread(target = loop, name = 'LoopThread')
 	t.start()
 	t.join()
@@ -116,4 +116,7 @@ t2.start()
 t1.join()
 t2.join()
 print(balance)
+
+# 多进程稳定性高一些，效率稍低；多线程稳定性差，效率稍高。
+# 另外，多任务也需要注意任务切换的开销；任务一旦过多，就会造成哪个任务也做不好。
 
