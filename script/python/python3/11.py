@@ -3,7 +3,6 @@
 import os
 import time
 import multiprocessing
-import subprocess
 
 # 多任务的实现有3种方式：
 # 多进程模式；
@@ -36,6 +35,7 @@ if __name__ == '__main__':
 # 另外，可以通过进程池multiprocessing.Pool对象批量创建进程(略)
 
 # 子进程还可以是外部进程
+import subprocess
 print('$ nslookup www.python.org')
 r = subprocess.call(['nslookup', 'www.python.org'])
 print('Exit code:', r)
