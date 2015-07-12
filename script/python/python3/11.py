@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
-import os
-import time
+import os, sys, time
 import multiprocessing
 
 # 多任务的实现有3种方式：
@@ -10,6 +9,7 @@ import multiprocessing
 # 多进程+多线程模式。
 # 一个进程至少有一个线程。
 
+#### 多进程 ####
 # python的os模块封装了Unix的fork()系统调用，可以实现多进程
 #print('Process (%s) start...' % os.getpid())
 #pid = os.fork()
@@ -21,8 +21,12 @@ import multiprocessing
 # 由于window没有fork系统调用，python提供了multiprocessing模块支持跨平台的多进程
 # multiprocessing提供了Process类来代表一个进程对象
 def run_proc(name):
-	time.sleep(5)
-	print('Run child process %s(%s)...' % (name, os.getpid()))
+	print('Run child process %s(%s) ' % (name, os.getpid()), end='')
+	for i in range(10):	
+		time.sleep(0.5)
+		print('.', end='')
+		sys.stdout.flush()
+	print('')
 
 if __name__ == '__main__':
 	print('Parent process %s' % os.getpid())
@@ -43,10 +47,11 @@ print('Exit code:', r)
 # 采用Queue机制进行进程间通信
 def write(q):
 	print('Process to write: %s' % os.getpid())
-	for value in range(10):
+	time.sleep(0.5)
+	for value in 'ABC':
 		print('Put %s in queue.' % value)
 		q.put(value)
-		time.sleep(2)
+		time.sleep(1)
 
 def read(q):
 	print('Process to read: %s' % os.getpid())
@@ -63,9 +68,54 @@ if __name__ == '__main__':
 	pw.join()
 	pr.terminate()
 
+#### 多线程 ####
+import threading
 
+def loop():
+	# threading.current_thread()返回当前线程的实例	
+	print('thread %s is running ...' % threading.current_thread().name)
+	n = 0
+	while n < 5:
+		n += 1
+		print('thread %s >>> %s' % (threading.current_thread().name, n))
+		time.sleep(0.5)
+	print('thread %s end.' % threading.current_thread().name)
 
+if __name__ == '__main__':
+	# 主线程实例的名字叫做MainThread
+	print('thread %s is running ...' % threading.current_thread().name)
+	# 主线程可以启动子线程，子线程的名字由threading.Thread()方法的name参数传入<F11>
+	t = threading.Thread(target = loop, name = 'LoopThread')
+	t.start()
+	t.join()
+	print('thread %s end.' % threading.current_thread().name)
 
+# 线程锁
+balance = 0
+lock = threading.Lock()
+
+def change_it(n):
+	global balance
+	balance -= n
+	balance += n
+
+def run_thread(n):
+	for i in range(1000000):
+		lock.acquire()
+		# 为了防止在change_it中出现异常导致后续代码不能执行，可以使用try...finally...
+		# 保证锁的释放，以免其他线程一直在等待该锁，成为死线程。
+		try:
+			change_it(n)
+		finally:
+			lock.release()
+
+t1 = threading.Thread(target = run_thread, args = (5,))
+t2 = threading.Thread(target = run_thread, args = (8,))
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(balance)
 
 
 
