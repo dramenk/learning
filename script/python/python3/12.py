@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# https://pillow.readthedocs.org/
 
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
