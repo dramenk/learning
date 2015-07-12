@@ -90,7 +90,7 @@ if __name__ == '__main__':
 	t.join()
 	print('thread %s end.' % threading.current_thread().name)
 
-# 线程锁
+# 线程锁,线程中修改局部变量需要注意是否需要加锁
 balance = 0
 lock = threading.Lock()
 
