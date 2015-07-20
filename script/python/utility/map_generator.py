@@ -19,6 +19,6 @@ def random_hex_str(randomlength = 16):
 	return str 
 
 if __name__ == '__main__':
-	with open('mapfile', 'a') as f:
+	with open('mapfile', 'w') as f:
 		for i in range(50000):
 			f.write('00000000' + random_hex_str(8) + ' ' + random_alph_str(random.randint(16, 32)) + '\n')
