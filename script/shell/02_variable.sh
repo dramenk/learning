@@ -17,6 +17,11 @@ echo "$var1${var2}"
 export var1
 env | grep var1
 
+# 子shell
+pwd
+(cd /opt;ls)					# 子shell的操作不影响当前shell
+pwd
+
 # 补充：
 echo ${#var2}					# 取变量的字符串长度
 echo $SHELL						# 获取shell类型
