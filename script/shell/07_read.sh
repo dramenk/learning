@@ -18,4 +18,14 @@ read ln
 # 这里要注意一下：不要像上面这样用单引号，不然会直接输出$fn和$ln
 echo -e "Name is $fn $ln"
 
+# 有时候需要不按回车键，读取n字符
+echo '3 characters will be received:'
+read -n 3 var
+echo -e "\n3 characters are ${var}."
+
+# 以非回显读取密码
+echo "Enter your password:"
+read -s password
+echo "password is ${password}."
+
 exit 0
