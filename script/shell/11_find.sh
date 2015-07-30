@@ -41,7 +41,7 @@ find . -type f -size +1
 echo '8. find . -type f -iname "*.sh" ! -perm 775 -print'
 find . -type f -iname "*.sh" ! -perm 775 -print0;echo
 # 批量改权限
-chmod 755 `find . -type f -iname "*.sh" ! -perm 755`
+chmod 755 `find . -type f -iname "*.sh" ! -perm 755` 2> /dev/null
 
 # 文件所有者
 echo '9. find . -type f -user root' 
