@@ -26,3 +26,8 @@ echo | awk '{var1="v1";var2="v2";print var1,var2}'
 # $1 当前行的第一个字段
 awk '{print "Line No:"NR", No of fields:"NF", $0="$0"，$1="$1""}' ./cost/cutfile
 awk 'END{print NR}' ./cost/mapfile
+
+# awk中还可以调用shell命令
+# WARNING: this script is used to KILL other ttys.
+tty_self=`who am i | awk '{print $2}'`
+w | grep -v ${tty_self} | awk '{if(NR>2) system("pkill -kill -t "$2)}'
