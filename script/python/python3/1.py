@@ -25,7 +25,7 @@ classmates.append("Gramenk") 	# 增，list类型是有序表
 print(classmates)
 classmates.pop(0)				# 删，下标从0开始 
 print(classmates)
-print('list是有序表，支持排序：'classmates.sort())		# 排序
+print('list是有序表，支持排序：', classmates.sort())		# 排序
 classmates[1] = 228646			# 改, 元素类型可以多样
 print(classmates[1])			# 查
 print("len of classmates is:", len(classmates))
