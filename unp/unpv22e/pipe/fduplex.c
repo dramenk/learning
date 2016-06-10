@@ -7,7 +7,8 @@ main(int argc, char **argv)
 	char	c;
 	pid_t	childpid;
 
-	Pipe(fd);		/* assumes a full-duplex pipe (e.g., SVR4) */
+	// Pipe(fd);		/* assumes a full-duplex pipe (e.g., SVR4) */
+	Socketpair(AF_UNIX, SOCK_STREAM, 0, fd);
 	if ( (childpid = Fork()) == 0) {		/* child */
 		sleep(3);
 		if ( (n = Read(fd[0], &c, 1)) != 1)

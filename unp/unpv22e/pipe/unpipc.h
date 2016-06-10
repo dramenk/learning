@@ -256,6 +256,7 @@ void  Munmap(void *, size_t);
 int  Open(const char *, int, ...);
 long  Pathconf(const char *, int);
 void  Pipe(int *fds);
+void  Socketpair(int domain, int type, int protocol, int *fds);
 ssize_t  Read(int, void *, size_t);
 int  Select(int, fd_set *, fd_set *, fd_set *, struct timeval *);
 void  Sigaddset(sigset_t *, int);

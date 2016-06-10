@@ -360,6 +360,13 @@ Pipe(int *fds)
 		err_sys("pipe error");
 }
 
+void
+Socketpair(int domain, int type, int protocol, int *fds)
+{
+	if (socketpair(domain, type, protocol, fds) < 0)
+		err_sys("socketpair error");
+}
+
 ssize_t
 Read(int fd, void *ptr, size_t nbytes)
 {
